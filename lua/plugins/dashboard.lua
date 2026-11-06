@@ -46,6 +46,14 @@ return {
             end,
           },
           {
+            desc = "Buffers",
+            group = "String",
+            key = "b",
+            action = function()
+              require("telescope.builtin").buffers({ sort_mru = true })
+            end,
+          },
+          {
             desc = "Quit",
             group = "Label",
             key = "q",
