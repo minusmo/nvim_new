@@ -14,6 +14,12 @@ return {
             highlight = "Directory",
             separator = true,
           },
+          {
+            filetype = "aerial",
+            text = "Symbols",
+            highlight = "Directory",
+            separator = true,
+          },
         },
       },
     })
