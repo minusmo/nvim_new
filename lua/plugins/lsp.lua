@@ -7,6 +7,7 @@ local servers = {
 
 return {
   "neovim/nvim-lspconfig",
+  dependencies = { "saghen/blink.cmp" },
   lazy = false,
   config = function()
     -- Recognize the Neovim runtime when editing this config.
