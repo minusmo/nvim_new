@@ -35,6 +35,17 @@ return {
             end,
           },
           {
+            desc = "Explorer",
+            group = "Directory",
+            key = "e",
+            action = function()
+              require("neo-tree.command").execute({
+                action = "focus",
+                dir = vim.uv.cwd(),
+              })
+            end,
+          },
+          {
             desc = "Quit",
             group = "Label",
             key = "q",
@@ -43,12 +54,14 @@ return {
             end,
           },
         },
-        -- Open the project directory. A file picker is not installed yet.
         project = {
           enable = true,
           limit = 8,
           action = function(path)
-            vim.cmd.edit(path)
+            require("neo-tree.command").execute({
+              action = "focus",
+              dir = path,
+            })
           end,
         },
         mru = {
