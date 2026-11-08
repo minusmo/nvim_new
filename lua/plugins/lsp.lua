@@ -3,6 +3,8 @@ local servers = {
   gopls = "gopls",
   rust_analyzer = "rust-analyzer",
   clangd = "clangd",
+  ty = "ty",
+  ruff = "ruff",
 }
 
 return {
