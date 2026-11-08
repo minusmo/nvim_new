@@ -28,6 +28,9 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
+-- Default yank, delete, and paste use the system clipboard.
+vim.opt.clipboard = "unnamedplus"
+
 -- Setup lazy.nvim
 require("lazy").setup({
   spec = {
