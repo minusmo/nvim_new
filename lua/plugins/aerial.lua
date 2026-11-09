@@ -1,11 +1,16 @@
 return {
-  "stevearc/aerial.nvim",
-  dependencies = { "nvim-tree/nvim-web-devicons" },
-  keys = {
-    {
-      "<leader>o",
-      "<Cmd>AerialToggle<CR>",
-      desc = "Show document symbols",
+  {
+    "stevearc/aerial.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+
+    opts = {},
+
+    keys = {
+      {
+        "<leader>o",
+        "<cmd>AerialToggle!<CR>",
+        desc = "Toggle Aerial",
+      },
     },
   },
 }
