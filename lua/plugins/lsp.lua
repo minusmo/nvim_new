@@ -45,10 +45,23 @@ return {
       end,
     })
 
-    for name, bin in pairs(servers) do
-      if vim.fn.executable(bin) == 1 then
-        vim.lsp.enable(name)
-      end
-    end
+        for name, bin in pairs(servers) do
+            if vim.fn.executable(bin) == 1 then
+                vim.lsp.enable(name)
+            end
+        end
+
+        vim.keymap.set("n", "gd", vim.lsp.buf.definition, {
+          desc = "Goto Definition",
+        })
+        vim.keymap.set("n", "gy", vim.lsp.buf.type_definition, {
+          desc = "Goto Type Definition",
+        })
+        vim.keymap.set("n", "gI", vim.lsp.buf.implementation, {
+          desc = "Goto Implementation",
+        })
+        vim.keymap.set("n", "gr", vim.lsp.buf.references, {
+          desc = "References",
+        })
   end,
 }
