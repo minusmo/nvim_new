@@ -20,6 +20,9 @@ return {
       -- completion you didn't pick. The first Tab selects the first item.
       list = { selection = { preselect = false } },
     },
+    -- Show the parameter list when typing a call, e.g. `foo(`. The active
+    -- parameter is highlighted (LspSignatureActiveParameter) and moves on each `,`.
+    signature = { enabled = true },
     sources = {
       default = { "lsp", "path", "snippets", "buffer" },
     },
