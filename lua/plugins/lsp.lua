@@ -7,6 +7,20 @@ local servers = {
   ruff = "ruff",
 }
 
+-- Inlay hints: LSP-provided labels drawn inline at call sites, e.g.
+-- `connect(host: "a", port: 80)`, so you can read which argument is which
+-- without opening the declaration.
+--
+-- How to turn them off:
+--   * Permanently: set ENABLE_INLAY_HINTS to false below.
+--   * Until you quit Neovim: run `:lua vim.lsp.inlay_hint.enable(false)`
+--     (`:lua vim.lsp.inlay_hint.enable(true)` turns them back on).
+--   * Only the current buffer:
+--     `:lua vim.lsp.inlay_hint.enable(false, { bufnr = 0 })`
+-- To hide just one language, remove its hint settings in the config() below
+-- (lua_ls, gopls) or switch them off in that server's own settings.
+local ENABLE_INLAY_HINTS = true
+
 -- Highlight every read/write of the symbol under the cursor using LSP
 -- textDocument/documentHighlight. Colours come from LspReferenceText/Read/Write
 -- (see colors/monochrome.lua).
@@ -100,7 +114,10 @@ return {
     -- Recognize the Neovim runtime when editing this config.
     vim.lsp.config("lua_ls", {
       settings = {
-        Lua = {},
+        Lua = {
+          -- lua_ls ships with hints off; show argument names only.
+          hint = { enable = true, paramName = "All", paramType = false, arrayIndex = "Disable" },
+        },
       },
       on_init = function(client)
         local path = client.workspace_folders and client.workspace_folders[1].name
@@ -129,6 +146,13 @@ return {
         })
       end,
     })
+
+    -- gopls also ships with hints off; ask it for argument names only.
+    vim.lsp.config("gopls", {
+      settings = { gopls = { hints = { parameterNames = true } } },
+    })
+
+    vim.lsp.inlay_hint.enable(ENABLE_INLAY_HINTS)
 
     vim.api.nvim_create_autocmd("LspAttach", {
       group = vim.api.nvim_create_augroup("lsp_reference_highlight", { clear = true }),
