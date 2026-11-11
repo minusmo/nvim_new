@@ -10,3 +10,7 @@ pcall(vim.cmd, "colorscheme monochrome")
 vim.keymap.set("n", "<leader>bd", "<cmd>bdelete<CR>", {
   desc = "Delete Buffer",
 })
+
+vim.keymap.set("n", "<leader>bb", "<cmd>buffer #<CR>", {
+  desc = "Previous Buffer",
+})
