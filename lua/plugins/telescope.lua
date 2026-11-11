@@ -24,5 +24,12 @@ return {
                 end,
             desc = "Find files",
         },
+    {
+      "<leader>fr",
+      function()
+        require("telescope.builtin").oldfiles()
+      end,
+      desc = "Recent files",
+    },
   },
 }
