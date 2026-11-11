@@ -9,6 +9,7 @@ local parsers = {
   "cpp",
   "go",
   "rust",
+  "html",
 }
 
 return {
