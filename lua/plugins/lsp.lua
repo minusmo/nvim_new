@@ -170,17 +170,20 @@ return {
             end
         end
 
-        vim.keymap.set("n", "gd", vim.lsp.buf.definition, {
-          desc = "Goto Definition",
-        })
-        vim.keymap.set("n", "gy", vim.lsp.buf.type_definition, {
-          desc = "Goto Type Definition",
-        })
-        vim.keymap.set("n", "gI", vim.lsp.buf.implementation, {
-          desc = "Goto Implementation",
-        })
-        vim.keymap.set("n", "gr", vim.lsp.buf.references, {
-          desc = "References",
-        })
+    -- Goto keys exist only in buffers that have an LSP client attached.
+    -- `gr` is deliberately left unmapped: Neovim's built-in grn/gra/grr/gri/grt
+    -- hang off it, and a mapping on `gr` itself would make it wait out
+    -- 'timeoutlen' before running. References is the built-in `grr`.
+    vim.api.nvim_create_autocmd("LspAttach", {
+      group = vim.api.nvim_create_augroup("lsp_keymaps", { clear = true }),
+      callback = function(args)
+        local function map(lhs, rhs, desc)
+          vim.keymap.set("n", lhs, rhs, { buffer = args.buf, desc = desc })
+        end
+        map("gd", vim.lsp.buf.definition, "Goto Definition")
+        map("gy", vim.lsp.buf.type_definition, "Goto Type Definition")
+        map("gI", vim.lsp.buf.implementation, "Goto Implementation")
+      end,
+    })
   end,
 }
