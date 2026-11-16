@@ -45,6 +45,12 @@ local c = {
     muted_warm_amber = "#B8860B",
     muted_warm_amber_dark = "#A67C1E",
 
+    -- Cursor colours: brighter and more saturated than the muted accents above
+    -- so the cursor stands out against the paper background.
+    cursor_normal = "#D9A21B", -- golden yellow
+    cursor_insert = "#E8661C", -- orange
+    cursor_visual = "#4A86D4", -- blue
+
     ref_text = "#d3dad4",
     ref_write = "#e3d8d6",
 }
@@ -61,7 +67,20 @@ hl("FloatBorder", { fg = c.surface2, bg = c.mantle })
 hl("FloatTitle", { fg = c.jet, bg = c.mantle })
 
 hl("ColorColumn", { bg = c.surface0 })
-hl("Cursor", { fg = c.bg, bg = c.jet })
+-- Cursor colour follows the mode: normal = yellow, insert = orange,
+-- visual = blue. Replace and operator-pending reuse the normal-mode yellow.
+-- Yellow is the faintest against the paper bg (about 2:1), orange and blue
+-- are about 3:1.
+hl("Cursor", { fg = c.bg, bg = c.cursor_normal })
+hl("iCursor", { fg = c.bg, bg = c.cursor_insert })
+hl("vCursor", { fg = c.bg, bg = c.cursor_visual })
+vim.o.guicursor = table.concat({
+    "n-c-sm:block-Cursor",
+    "v:block-vCursor",
+    "ve:ver25-vCursor",
+    "i-ci:ver25-iCursor",
+    "r-cr-o:hor20-Cursor",
+}, ",")
 hl("CursorLine", { bg = c.surface0 })
 hl("CursorColumn", { bg = c.surface0 })
 hl("LineNr", { fg = c.surface1 })
